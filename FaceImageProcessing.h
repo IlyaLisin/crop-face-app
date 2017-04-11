@@ -8,13 +8,8 @@
 class FaceImageProcessing {
 private:
 	const int N_BOUND_FACE_POINTS = 16;
-    IConfig* _config;
-    ILogger* _logger;
 public:
-    FaceImageProcessing(IConfig* config, ILogger* logger) {
-        _config = config;
-        _logger = logger;
-    }
+    FaceImageProcessing() {}
 	
     float* foundFacePoints();
     cv::Mat cropFace(float* landmarks);

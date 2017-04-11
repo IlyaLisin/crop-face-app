@@ -2,10 +2,9 @@
 
 float* FaceImageProcessing::foundFacePoints() {
 	// read image and convert
-    cv::Mat_<unsigned char> img(cv::imread(_config->getImagePath(), CV_LOAD_IMAGE_GRAYSCALE));
+    cv::Mat_<unsigned char> img(cv::imread("/home/lisin/projects/crop-face-app/testface.jpg", CV_LOAD_IMAGE_GRAYSCALE));
 
     if (!img.data) {
-        _logger->log("Cannot load " + _config->getImagePath());
 		exit(1);
 	}
 
@@ -13,12 +12,10 @@ float* FaceImageProcessing::foundFacePoints() {
     float* landmarks = new float[2 * stasm_NLANDMARKS];
 
 	if (!stasm_search_single(&foundface, landmarks,
-        (char*)img.data, img.cols, img.rows, _config->getImagePath().c_str(), _config->getHaarcascadePath().c_str())) {
-        _logger->log(stasm_lasterr());
+        (char*)img.data, img.cols, img.rows, "/home/lisin/projects/crop-face-app/testface.jpg", "/home/lisin/projects/crop-face-app")) {
         exit(1);
 	}
 	if (!foundface) {
-        _logger->log("No face found in image");
 		exit(1);
 	}
 
@@ -26,17 +23,14 @@ float* FaceImageProcessing::foundFacePoints() {
 		if (landmarks[i] < 0) landmarks[i] = 0;
     }
 
-     _logger->log("Face found!");
-
     return landmarks;
 }
 
 cv::Mat FaceImageProcessing::cropFace(float* landmarks) {
 	// Read input image and convert to float
-    cv::Mat imgIn = cv::imread(_config->getImagePath());
+    cv::Mat imgIn = cv::imread("/home/lisin/projects/crop-face-app/testface.jpg");
 
     if (!imgIn.data) {
-        _logger->log("Cannot load " + _config->getImagePath());
         exit(1);
     }
 

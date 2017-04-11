@@ -4,7 +4,7 @@
 int main(int argc, char* argv[])
 {
     FaceImageProcessing* faceImageProcessing =
-           new FaceImageProcessing(new FileConfig("/home/lisin/projects/cropFace-app/ImagePreprocessing/trunk/path.xml"), new FileLogger());
+           new FaceImageProcessing();
 
 
     float* landmarks = faceImageProcessing->foundFacePoints();
